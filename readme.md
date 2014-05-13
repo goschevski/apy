@@ -7,44 +7,44 @@ Apy is a simple client-side library for making ajax rest api calls.
 ### Example
 
 ```
-    var PeopleApi = new Apy({
-        base: '/api/v3/',
-        collection: 'people',
-        id: 'username'
-    });
+var PeopleApi = new Apy({
+    base: '/api/v3/',
+    collection: 'people',
+    id: 'username'
+});
 
-    // Get all
-    PeopleApi.all(function (err, data) {
-        if (!err) {
-            console.log(data);
-        }
-    });
+// Get all
+PeopleApi.all(function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
 
-    // Get one
-    PeopleApi.find(id, function (err, data) {
-        if (!err) {
-            console.log(data);
-        }
-    });
+// Get one
+PeopleApi.find(id, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
 
-    // Save
-    PeopleApi.save(obj, function (err, data) {
-        if (!err) {
-            console.log(data);
-        }
-    });
+// Save
+PeopleApi.save(obj, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
 
-    // Update
-    PeopleApi.update(id, obj, function (err, data) {
-        if (!err) {
-            console.log(data);
-        }
-    });
+// Update
+PeopleApi.update(id, obj, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
 
-    // Destroy
-    PeopleApi.destroy(id, function (err, data) {
-        if (!err) {
-            console.log(data);
-        }
-    });
+// Destroy
+PeopleApi.destroy(id, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
 ```
