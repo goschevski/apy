@@ -109,10 +109,6 @@
         }
     };
 
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = Apy;
-    } else {
-        window.Apy = Apy;
-    }
+    window.Apy = Apy;
 
 })();
