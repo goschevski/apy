@@ -31,14 +31,4 @@ describe('Apy options', function () {
         var api = new Apy({ base: '/api/', collection: 'people' });
         expect(api.route).toEqual('/api/people/');
     });
-
-    it('should have a default id', function () {
-       var api = new Apy({ base: '/api/', collection: 'people' });
-       expect(api.id).toEqual('id');
-    });
-
-    it('should be able to set id', function () {
-        var api = new Apy({ base: '/api/', collection: 'people', id: 'username' });
-        expect(api.id).toEqual('username');
-    });
 });

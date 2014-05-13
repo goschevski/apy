@@ -4,7 +4,6 @@
         this.options = options;
         this.validateBase();
         this.validateCollection();
-        this.validateId();
         this.createRoute();
     };
 
@@ -31,14 +30,6 @@
             }
 
             this.collection = this.options.collection;
-        },
-
-        validateId: function () {
-            if ( !this.options.id ) {
-                return this.id = 'id';
-            }
-
-            this.id = this.options.id;
         },
 
         createRoute: function () {

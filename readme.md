@@ -9,8 +9,7 @@ Apy is a simple client-side library for making ajax rest api calls.
 ```
 var PeopleApi = new Apy({
     base: '/api/v3/',
-    collection: 'people',
-    id: 'username'
+    collection: 'people'
 });
 
 // Get all

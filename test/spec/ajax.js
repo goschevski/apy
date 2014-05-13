@@ -5,8 +5,7 @@ describe('Apy ajax calls', function () {
         jasmine.Ajax.install();
         PeopleApi = new Apy({
             base: '/api/v3/',
-            collection: 'people',
-            id: 'username'
+            collection: 'people'
         });
     });
 
