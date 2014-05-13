@@ -22,7 +22,7 @@ PeopleApi.all(function (err, data) {
 }, { kind: 'nice', job: 'developer' });
 ```
 
-**GET** request to `/api/v3/people/?kind=nice&job=developer`
+*GET* request to `/api/v3/people/?kind=nice&job=developer`
 
 #### Find
 ```
@@ -33,7 +33,7 @@ PeopleApi.find(12, function (err, data) {
 }, { job: 'developer' });
 ```
 
-**GET** request to `/api/v3/people/12?job=developer`
+*GET* request to `/api/v3/people/12?job=developer`
 
 #### Save
 ```
@@ -44,7 +44,7 @@ PeopleApi.save(obj, function (err, data) {
 }, { job: 'developer' });
 ```
 
-**POST** request to `/api/v3/people/?job=developer`
+*POST* request to `/api/v3/people/?job=developer`
 
 #### Update
 ```
@@ -55,7 +55,7 @@ PeopleApi.update(12, { job: 'designer' }, function (err, data) {
 }, { changed: 'job' });
 ```
 
-**PUT** request to `/api/v3/people/12?changed=job`
+*PUT* request to `/api/v3/people/12?changed=job`
 
 #### Destroy
 ```
@@ -66,4 +66,4 @@ PeopleApi.destroy(12, function (err, data) {
 }, { soft: true });
 ```
 
-**DELETE** request to `/api/v3/people/12?soft=true`
+*DELETE* request to `/api/v3/people/12?soft=true`
