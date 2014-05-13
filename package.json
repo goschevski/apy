@@ -3,18 +3,15 @@
   "version": "0.0.0",
   "description": "Apy is a simple client-side library for making ajax rest api calls.",
   "main": "apy.js",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/goschevski/apy"
   },
-  "dependencies": {},
-  "devDependencies": {},
   "keywords": [
     "api",
     "rest",
-    "ajax"
-    "crud",
+    "ajax",
+    "crud"
   ],
   "author": "Aleksandar Goševski - www.goschevski.com",
   "license": "ISC",
