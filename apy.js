@@ -36,6 +36,20 @@
             this.route = this.base + this.collection + '/';
         },
 
+        mapParams: function (params) {
+            if (typeof params !== 'object') {
+                throw new Error('Params must be passed as object.')
+            }
+
+            var arr = [];
+
+            for ( var key in params ) {
+                arr.push( encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) );
+            }
+
+            return arr.length === 0 ? '' : '?' + arr.join('&');
+        },
+
         send: function (url, method, params, cb) {
             var xhr = new XMLHttpRequest();
 
@@ -79,24 +93,29 @@
             xhr.send(body);
         },
 
-        all: function (cb) {
-            this.send(this.route, 'GET', {}, cb);
+        all: function (cb, params) {
+            var query = this.mapParams(params || {});
+            this.send(this.route + query, 'GET', {}, cb);
         },
 
-        find: function (id, cb) {
-            this.send(this.route + id, 'GET', {}, cb);
+        find: function (id, cb, params) {
+            var query = this.mapParams(params || {});
+            this.send(this.route + id + query, 'GET', {}, cb);
         },
 
-        save: function (data, cb) {
-            this.send(this.route, 'POST', data, cb);
+        save: function (data, cb, params) {
+            var query = this.mapParams(params || {});
+            this.send(this.route + query, 'POST', data, cb);
         },
 
-        update: function (id, data, cb) {
-            this.send(this.route + id, 'PUT', data, cb);
+        update: function (id, data, cb, params) {
+            var query = this.mapParams(params || {});
+            this.send(this.route + id + query, 'PUT', data, cb);
         },
 
-        destroy: function (id, cb) {
-            this.send(this.route + id, 'DELETE', {}, cb);
+        destroy: function (id, cb, params) {
+            var query = this.mapParams(params || {});
+            this.send(this.route + id + query, 'DELETE', {}, cb);
         }
     };
 
