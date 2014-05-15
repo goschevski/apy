@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/goschevski/apy.svg?branch=master)](https://travis-ci.org/goschevski/apy)
 
-Apy is a simple client-side library for making ajax rest api calls.
+Apy is a simple client-side library for making rest api ajax calls.
 
 ## Define resource
 ```

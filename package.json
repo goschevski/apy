@@ -1,7 +1,7 @@
 {
   "name": "apy",
   "version": "2.1.0",
-  "description": "Apy is a simple client-side library for making ajax rest api calls.",
+  "description": "Apy is a simple client-side library for making rest api ajax calls.",
   "main": "apy.js",
   "repository": {
     "type": "git",
