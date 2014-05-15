@@ -1,4 +1,12 @@
 describe('Apy options', function () {
+    beforeEach(function () {
+        jasmine.Ajax.install();
+    });
+
+    afterEach(function () {
+        jasmine.Ajax.uninstall();
+    });
+
     it('should append slash to base if there is a need', function () {
         var api = new Apy({ base: '/api', collection: 'people' });
         var api2 = new Apy({ base: '/api/', collection: 'people' });
@@ -30,5 +38,22 @@ describe('Apy options', function () {
     it('should have a route', function () {
         var api = new Apy({ base: '/api/', collection: 'people' });
         expect(api.route).toEqual('/api/people/');
+    });
+
+    describe('Extend', function () {
+        it('should be extensible', function () {
+            // extend
+            Apy.prototype.remove = function (id, cb, params) {
+                this.destroy(id, cb, params);
+            };
+
+            // instance for testing
+            var api = new Apy({ collection: 'developers' });
+            api.remove('goschevski', function (err, data) {});
+
+            // test
+            expect(jasmine.Ajax.requests.mostRecent().method).toBe('DELETE');
+            expect(jasmine.Ajax.requests.mostRecent().url).toBe('/developers/goschevski');
+        });
     });
 });

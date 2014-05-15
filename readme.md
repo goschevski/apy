@@ -4,7 +4,7 @@
 
 Apy is a simple client-side library for making ajax rest api calls.
 
-### Define resource
+## Define resource
 ```
 var PeopleApi = new Apy({
     base: '/api/v3/',
@@ -67,3 +67,16 @@ PeopleApi.destroy(12, function (err, data) {
 ```
 
 *DELETE* request to `/api/v3/people/12?soft=true`
+
+## Extend
+```
+Apy.prototype.remove = function (id, cb, params) {
+    this.destroy(id, cb, params);
+};
+
+
+var api = new Apy({ collection: 'developers' });
+api.remove('goschevski', function (err, data) {});
+```
+
+*DELETE* request to `/developers/goschevski`
