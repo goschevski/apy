@@ -10,7 +10,8 @@
     Apy.prototype = {
         validateBase: function () {
             if ( !this.options.base ) {
-                return this.base = '/';
+                this.base = '/';
+                return;
             }
 
             if ( !this.options.base.match(/\/$/) ) {
@@ -38,7 +39,7 @@
 
         mapParams: function (params) {
             if (typeof params !== 'object') {
-                throw new Error('Params must be passed as object.')
+                throw new Error('Params must be passed as object.');
             }
 
             var arr = [];
@@ -74,7 +75,7 @@
                     // Return err to callback if can't get data from api
                     cb(new Error('Can\'t get data from the api!'), null);
                 }
-            }
+            };
 
             var body,
                 chunks = [];
