@@ -1,5 +1,6 @@
-;(function () {
+'use strict';
 
+(function () {
     var Apy = function (options) {
         this.options = options;
         this.validateBase();
@@ -120,6 +121,9 @@
         }
     };
 
-    window.Apy = Apy;
-
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = Apy;
+    } else {
+        window.Apy = Apy;
+    }
 })();

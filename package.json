@@ -3,6 +3,14 @@
   "version": "2.1.2",
   "description": "Apy is a simple client-side library for making rest api ajax calls.",
   "main": "apy.js",
+  "scripts": {
+    "test": "karma start --single-run",
+    "lint": "eslint 'apy.js' 'tests/*.js'"
+  },
+  "pre-commit": [
+	  "test",
+	  "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/goschevski/apy"
@@ -18,5 +26,13 @@
   "bugs": {
     "url": "https://github.com/goschevski/apy/issues"
   },
-  "homepage": "https://github.com/goschevski/apy"
+  "homepage": "https://github.com/goschevski/apy",
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "karma": "1.6.0",
+    "karma-jasmine": "1.1.0",
+    "karma-jasmine-ajax": "0.1.13",
+    "karma-phantomjs-launcher": "1.0.4",
+    "pre-commit": "1.2.2"
+  }
 }

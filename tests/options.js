@@ -21,7 +21,7 @@ describe('Apy options', function () {
 
     it('should have a collection', function () {
         try {
-            var api = new Apy({});
+            new Apy({});
         } catch (err) {
             expect(err.message).toEqual('You must pass collection.');
         }
@@ -29,7 +29,7 @@ describe('Apy options', function () {
 
     it('should throw an error for bad collection', function () {
         try {
-            var api = new Apy({ base: '/api/', collection: ['people'] });
+            new Apy({ base: '/api/', collection: ['people'] });
         } catch (err) {
             expect(err.message).toEqual('Collection must be passed as string.');
         }
@@ -49,7 +49,7 @@ describe('Apy options', function () {
 
             // instance for testing
             var api = new Apy({ collection: 'developers' });
-            api.remove('goschevski', function (err, data) {});
+            api.remove('goschevski', function () {});
 
             // test
             expect(jasmine.Ajax.requests.mostRecent().method).toBe('DELETE');

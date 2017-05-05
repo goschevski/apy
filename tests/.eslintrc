@@ -1,0 +1,14 @@
+{
+    "env": {
+        "browser": true,
+        "jasmine": true,
+        "es6": true
+    },
+    "globals": {
+        "Apy": false
+    },
+    rules: {
+        "max-nested-callbacks": ["error", 4],
+        "no-unused-expressions": 0
+    }
+}
