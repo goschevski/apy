@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "karma start --single-run",
-    "test:watch": "karma start",
     "lint": "eslint 'src/*.js' 'tests/*.js'",
-    "postinstall": "babel src -d dist --presets=es2015"
+    "postinstall": "babel src -d dist --presets=es2015",
+    "compile": "(npm run postinstall & npm run lint) && npm run test",
+    "watch": "watch 'npm run compile' src tests"
   },
   "pre-commit": [
     "test",
@@ -37,6 +38,7 @@
     "karma-jasmine": "1.1.0",
     "karma-jasmine-ajax": "0.1.13",
     "karma-phantomjs-launcher": "1.0.4",
-    "pre-commit": "1.2.2"
+    "pre-commit": "1.2.2",
+    "watch": "1.0.2"
   }
 }
