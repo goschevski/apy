@@ -2,14 +2,16 @@
   "name": "apy",
   "version": "2.1.2",
   "description": "Apy is a simple client-side library for making rest api ajax calls.",
-  "main": "apy.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "karma start --single-run",
-    "lint": "eslint 'apy.js' 'tests/*.js'"
+    "test:watch": "karma start",
+    "lint": "eslint 'src/*.js' 'tests/*.js'",
+    "postinstall": "babel src -d dist --presets=es2015"
   },
   "pre-commit": [
-	  "test",
-	  "lint"
+    "test",
+    "lint"
   ],
   "repository": {
     "type": "git",
@@ -28,6 +30,8 @@
   },
   "homepage": "https://github.com/goschevski/apy",
   "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-preset-es2015": "6.24.1",
     "eslint": "3.19.0",
     "karma": "1.6.0",
     "karma-jasmine": "1.1.0",
