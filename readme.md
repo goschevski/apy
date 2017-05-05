@@ -7,76 +7,125 @@ Apy is a simple client-side library for making rest api ajax calls.
 ## Define resource
 ```javascript
 var PeopleApi = new Apy({
-    base: '/api/v3/',
-    collection: 'people'
+    base: '/api/v3/people'
 });
 ```
 
 #### All
 
 ```javascript
-PeopleApi.all(function (err, data) {
+PeopleApi.all({ kind: 'nice', job: 'developer' }, function (err, data) {
     if (!err) {
         console.log(data);
     }
-}, { kind: 'nice', job: 'developer' });
+});
 ```
 
 *GET* request to `/api/v3/people/?kind=nice&job=developer`
 
+```javascript
+PeopleApi.all(function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
+```
+
+*GET* request to `/api/v3/people/`
+
 #### Find
+```javascript
+PeopleApi.find(12, { job: 'developer' }, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
+```
+
+*GET* request to `/api/v3/people/12?job=developer`
+
 ```javascript
 PeopleApi.find(12, function (err, data) {
     if (!err) {
         console.log(data);
     }
-}, { job: 'developer' });
+});
 ```
 
-*GET* request to `/api/v3/people/12?job=developer`
+*GET* request to `/api/v3/people/12`
 
 #### Save
+```javascript
+PeopleApi.save(obj, { job: 'developer' }, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
+```
+
+*POST* request to `/api/v3/people/?job=developer`
+
 ```javascript
 PeopleApi.save(obj, function (err, data) {
     if (!err) {
         console.log(data);
     }
-}, { job: 'developer' });
+});
 ```
 
-*POST* request to `/api/v3/people/?job=developer`
+*POST* request to `/api/v3/people/`
 
 #### Update
+```javascript
+PeopleApi.update(12, { job: 'designer' }, { changed: 'job' }, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
+```
+
+*PUT* request to `/api/v3/people/12?changed=job`
+
 ```javascript
 PeopleApi.update(12, { job: 'designer' }, function (err, data) {
     if (!err) {
         console.log(data);
     }
-}, { changed: 'job' });
+});
 ```
 
-*PUT* request to `/api/v3/people/12?changed=job`
+*PUT* request to `/api/v3/people/12`
 
 #### Destroy
+```javascript
+PeopleApi.destroy(12, { soft: true }, function (err, data) {
+    if (!err) {
+        console.log(data);
+    }
+});
+```
+
+*DELETE* request to `/api/v3/people/12?soft=true`
+
 ```javascript
 PeopleApi.destroy(12, function (err, data) {
     if (!err) {
         console.log(data);
     }
-}, { soft: true });
+});
 ```
 
-*DELETE* request to `/api/v3/people/12?soft=true`
+*DELETE* request to `/api/v3/people/12`
 
 ## Extend
 ```javascript
-Apy.prototype.remove = function (id, cb, params) {
-    this.destroy(id, cb, params);
+Apy.prototype.remove = function (id, params, cb) {
+    this.destroy(id, params, cb);
 };
 
 
-var api = new Apy({ collection: 'developers' });
+var api = new Apy();
 api.remove('goschevski', function (err, data) {});
 ```
 
-*DELETE* request to `/developers/goschevski`
+*DELETE* request to `/goschevski`

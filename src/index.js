@@ -2,35 +2,58 @@
 
 class Apy {
     constructor (options) {
-        this.options = options;
+        this.options = options || {};
         this.validateBase();
-        this.validateCollection();
-        this.createRoute();
     }
 
-    all (cb, params) {
+    all (params, cb) {
+        if (typeof params === 'function') {
+            cb = params;
+            params = {};
+        }
+
         const query = this.mapParams(params || {});
-        this.send(`${this.route}${query}`, 'GET', {}, cb);
+        this.send(`${this.base}${query}`, 'GET', {}, cb);
     }
 
-    find (id, cb, params) {
+    find (id, params, cb) {
+        if (typeof params === 'function') {
+            cb = params;
+            params = {};
+        }
+
         const query = this.mapParams(params || {});
-        this.send(`${this.route}${id}${query}`, 'GET', {}, cb);
+        this.send(`${this.base}${id}${query}`, 'GET', {}, cb);
     }
 
-    save (data, cb, params) {
+    save (data, params, cb) {
+        if (typeof params === 'function') {
+            cb = params;
+            params = {};
+        }
+
         const query = this.mapParams(params || {});
-        this.send(`${this.route}${query}`, 'POST', data, cb);
+        this.send(`${this.base}${query}`, 'POST', data, cb);
     }
 
-    update (id, data, cb, params) {
+    update (id, data, params, cb) {
+        if (typeof params === 'function') {
+            cb = params;
+            params = {};
+        }
+
         const query = this.mapParams(params || {});
-        this.send(`${this.route}${id}${query}`, 'PUT', data, cb);
+        this.send(`${this.base}${id}${query}`, 'PUT', data, cb);
     }
 
-    destroy (id, cb, params) {
+    destroy (id, params, cb) {
+        if (typeof params === 'function') {
+            cb = params;
+            params = {};
+        }
+
         const query = this.mapParams(params || {});
-        this.send(`${this.route}${id}${query}`, 'DELETE', {}, cb);
+        this.send(`${this.base}${id}${query}`, 'DELETE', {}, cb);
     }
 
     validateBase () {
@@ -44,22 +67,6 @@ class Apy {
         }
 
         this.base = this.options.base;
-    }
-
-    validateCollection () {
-        if (!this.options.collection) {
-            throw new Error('You must pass collection.');
-        }
-
-        if (typeof this.options.collection !== 'string') {
-            throw new Error('Collection must be passed as string.');
-        }
-
-        this.collection = this.options.collection;
-    }
-
-    createRoute () {
-        this.route = `${this.base}${this.collection}/`;
     }
 
     mapParams (params) {
