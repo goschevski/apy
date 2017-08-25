@@ -3,6 +3,10 @@
 
 module.exports = function(config) {
   config.set({
+    client: {
+      captureConsole: true
+    },
+
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -10,11 +14,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine-ajax', 'jasmine'],
+    frameworks: ['jasmine-ajax', 'jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      './node_modules/babel-polyfill/dist/polyfill.js',
       'dist/*.js',
       'tests/*.js'
     ],

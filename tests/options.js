@@ -14,6 +14,13 @@ describe('Apy options', () => {
         expect(api2.base).toEqual('/api/');
     });
 
+    it('should not append slash to base', () => {
+        const api = new Apy({ base: '/api', appendSlash: false });
+        const api2 = new Apy({ base: '/api/' });
+        expect(api.base).toEqual('/api');
+        expect(api2.base).toEqual('/api/');
+    });
+
     it('should have a default base', () => {
         const api = new Apy();
         expect(api.base).toEqual('/');

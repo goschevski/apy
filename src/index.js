@@ -1,9 +1,15 @@
 'use strict';
 
 class Apy {
-    constructor (options) {
-        this.options = options || {};
+    constructor (options = {}) {
+        this.options = Object.assign({}, this.defaults(), options);
         this.validateBase();
+    }
+
+    defaults () {
+        return {
+            appendSlash: true
+        };
     }
 
     all (params, cb) {
@@ -13,7 +19,14 @@ class Apy {
         }
 
         const query = this.mapParams(params || {});
-        this.send(`${this.base}${query}`, 'GET', {}, cb);
+
+        return new Promise((resolve, reject) => {
+            this.send(`${this.base}${query}`, 'GET', {}, cb).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
     find (id, params, cb) {
@@ -23,7 +36,14 @@ class Apy {
         }
 
         const query = this.mapParams(params || {});
-        this.send(`${this.base}${id}${query}`, 'GET', {}, cb);
+
+        return new Promise((resolve, reject) => {
+            this.send(`${this.base}${id}${query}`, 'GET', {}, cb).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
     save (data, params, cb) {
@@ -33,7 +53,14 @@ class Apy {
         }
 
         const query = this.mapParams(params || {});
-        this.send(`${this.base}${query}`, 'POST', data, cb);
+
+        return new Promise((resolve, reject) => {
+            this.send(`${this.base}${query}`, 'POST', data, cb).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
     update (id, data, params, cb) {
@@ -43,7 +70,14 @@ class Apy {
         }
 
         const query = this.mapParams(params || {});
-        this.send(`${this.base}${id}${query}`, 'PUT', data, cb);
+
+        return new Promise((resolve, reject) => {
+            this.send(`${this.base}${id}${query}`, 'PUT', data, cb).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
     destroy (id, params, cb) {
@@ -53,7 +87,14 @@ class Apy {
         }
 
         const query = this.mapParams(params || {});
-        this.send(`${this.base}${id}${query}`, 'DELETE', {}, cb);
+
+        return new Promise((resolve, reject) => {
+            this.send(`${this.base}${id}${query}`, 'DELETE', {}, cb).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
     }
 
     validateBase () {
@@ -62,7 +103,7 @@ class Apy {
             return;
         }
 
-        if (!this.options.base.match(/\/$/)) {
+        if (!this.options.base.endsWith('/') && this.options.appendSlash) {
             this.options.base += '/';
         }
 
@@ -87,47 +128,48 @@ class Apy {
 
     send (url, method, params, cb) {
         const xhr = new XMLHttpRequest();
+        cb = cb || function () {};
 
-        xhr.open(method, url, true);
-        xhr.onreadystatechange = () => {
-            // If call is good
-            if (xhr.readyState === 4) {
-                let data = xhr.responseText;
+        return new Promise((resolve, reject) => {
+            xhr.open(method, url, true);
+            xhr.onreadystatechange = () => {
+                // If call is good
+                if (xhr.readyState === 4) {
+                    let data = xhr.responseText;
 
-                // Try to parse response
-                try {
-                    data = JSON.parse(data);
-                } catch (err) {
-                    cb(new Error('Can\'t parse response from the api.'), null);
-                    return;
+                    // Try to parse response
+                    try {
+                        data = JSON.parse(data);
+                    } catch (err) {
+                        reject(new Error('Can\'t parse response from the api.'));
+                        cb(new Error('Can\'t parse response from the api.'), null);
+                        return;
+                    }
+
+                    // Call the callback
+                    resolve(data);
+                    cb(null, data);
+                }
+            };
+
+            let body;
+            const chunks = [];
+
+            if (params) {
+                for (const name in params) {
+                    if (params.hasOwnProperty(name)) {
+                        chunks.push(`${name}=${encodeURIComponent(params[name])}`);
+                    }
                 }
 
-                // Call the callback
-                cb(null, data);
-
-            } else {
-                // Return err to callback if can't get data from api
-                cb(new Error('Can\'t get data from the api!'), null);
-            }
-        };
-
-        let body;
-        const chunks = [];
-
-        if (params) {
-            for (const name in params) {
-                if (params.hasOwnProperty(name)) {
-                    chunks.push(`${name}=${encodeURIComponent(params[name])}`);
+                body = chunks.join('&');
+                if (body.length) {
+                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 }
             }
 
-            body = chunks.join('&');
-            if ( body.length ) {
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            }
-        }
-
-        xhr.send(body);
+            xhr.send(body);
+        });
     }
 }
 
